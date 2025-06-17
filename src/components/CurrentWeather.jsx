@@ -14,7 +14,7 @@ export const CurrentWeather = ({weather}) => {
   const condition = weather.current.condition.text;
   const Icon = getWeatherIcon(condition); 
   return (
-    <div className="bg-slate-700 p-2 md:p-4 rounded-xl text-white min-w-[25%] flex flex-col gap-6">
+    <div className="bg-slate-700 p-2 md:p-4 rounded-xl text-white min-w-[25%] flex flex-col justify-evenly gap-6">
       <div className="flex items-center justify-between ">
         <div className="text-6xl font-bold">{weather.current.temp_c}</div>
         <div className="flex flex-col gap-1 items-start">

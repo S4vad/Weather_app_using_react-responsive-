@@ -8,7 +8,7 @@ import { CurrentWeatherSkeleton } from "../skeltons/CurrentWeatherSkelton";
 import { HourlyForecastSkeleton } from "../skeltons/HourlyForecastSkeltons";
 import { CityWeather } from "./CityWeather";
 
-import {DailyForecast} from "./DailyForecast"
+import { DailyForecast } from "./DailyForecast";
 
 export const WeatherApp = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,6 +17,7 @@ export const WeatherApp = () => {
   const handleSearch = () => {
     if (searchQuery.length > 0) {
       setCity(searchQuery);
+      setSearchQuery("");
     }
   };
 
@@ -40,9 +41,12 @@ export const WeatherApp = () => {
       : null
   );
 
-
   //  If either call failed (e.g., "No matching location found") when searching need to  handle
-  const hasError = currentError || currentWeather?.error || forecastError || forecastData?.error;
+  const hasError =
+    currentError ||
+    currentWeather?.error ||
+    forecastError ||
+    forecastData?.error;
   const errorMessage =
     currentError?.message ||
     currentWeather?.error?.message ||
@@ -58,29 +62,32 @@ export const WeatherApp = () => {
       />
 
       {hasError ? (
-        <div className="text-red-500 bg-slate-700 p-4 rounded-xl w-[30%]">
-          {errorMessage || "Unable to load weather data."}
+        <div className="flex justify-center items-center h-[70vh] w-full">
+          <div className="text-red-500 bg-slate-700 p-6 justify-center text-xl flex rounded-xl w-[40%]">
+            {errorMessage || "Unable to load weather data."}
+          </div>
         </div>
       ) : (
-        <div className="flex flex-col md:flex-row justify-between gap-6">
-          {currentLoading ? (
-            <CurrentWeatherSkeleton />
-          ) : (
-            <CurrentWeather weather={currentWeather} />
-          )}
+        <>
+          <div className="flex flex-col md:flex-row justify-between gap-6">
+            {currentLoading ? (
+              <CurrentWeatherSkeleton />
+            ) : (
+              <CurrentWeather weather={currentWeather} />
+            )}
 
-          {forecastLoading ? (
-            <HourlyForecastSkeleton />
-          ) : (
-            <HourlyForecast weather={forecastData} />
-          )}
-        </div>
+            {forecastLoading ? (
+              <HourlyForecastSkeleton />
+            ) : (
+              <HourlyForecast weather={forecastData} />
+            )}
+          </div>
+          <div className="flex  flex-col md:flex-row gap-6 md:gap-20">
+            <CityWeather />
+            <DailyForecast weather={forecastData} />
+          </div>
+        </>
       )}
-
-      <div className="flex  flex-col md:flex-row gap-6 md:gap-20">
-        <CityWeather/>
-        <DailyForecast weather={forecastData}/>
-      </div>
     </div>
   );
 };

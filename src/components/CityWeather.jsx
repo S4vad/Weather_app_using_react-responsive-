@@ -10,7 +10,6 @@ const cities = ["New York", "Copenhagen", "Ho Chi Minh City"];
 export const CityWeather = () => {
   const [dataList, setDataList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const getCountryCode = (country) => {
   if (country === "United States of America") return "US";
@@ -31,7 +30,7 @@ export const CityWeather = () => {
         const results = await Promise.all(promises);
         setDataList(results);
       } catch (error) {
-        setError(error);
+        console.log(error)
       } finally {
         setLoading(false);
       }

@@ -9,7 +9,7 @@ export const HourlyForecast = ({ weather }) => {
   const threeHourData = hours.filter((_, idx) => idx % 3 === 0);
 
   return (
-    <div className="flex gap-4 flex-wrap">
+    <div className="flex gap-8 flex-wrap">
       {threeHourData.map((hour, idx) => (
         <div
           key={idx}
