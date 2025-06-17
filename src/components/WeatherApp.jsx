@@ -8,6 +8,8 @@ import { CurrentWeatherSkeleton } from "../skeltons/CurrentWeatherSkelton";
 import { HourlyForecastSkeleton } from "../skeltons/HourlyForecastSkeltons";
 import { CityWeather } from "./CityWeather";
 
+import {DailyForecast} from "./DailyForecast"
+
 export const WeatherApp = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [city, setCity] = useState("London");
@@ -37,6 +39,7 @@ export const WeatherApp = () => {
       ? `https://api.weatherapi.com/v1/forecast.json?key=${API_WEATHER}&q=${city}&days=5`
       : null
   );
+
 
   //  If either call failed (e.g., "No matching location found") when searching need to  handle
   const hasError = currentError || currentWeather?.error || forecastError || forecastData?.error;
@@ -74,8 +77,9 @@ export const WeatherApp = () => {
         </div>
       )}
 
-      <div>
+      <div className="flex  flex-col md:flex-row gap-6 md:gap-20">
         <CityWeather/>
+        <DailyForecast weather={forecastData}/>
       </div>
     </div>
   );

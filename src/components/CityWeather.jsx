@@ -40,7 +40,7 @@ export const CityWeather = () => {
   }, []);
 
   return (
-    <div className="max-w-[25%] flex flex-col justify-between  gap-4 text-gray-200 ">
+    <div className="min-w-[25%] flex flex-col justify-between  gap-4 text-gray-200 ">
       <div className="text-gray-300 text-lg">Other large cities</div>
       {loading ? (
         <CityWeatherSkelton />
