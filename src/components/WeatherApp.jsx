@@ -6,6 +6,7 @@ import useFetch from "../hooks/useFetch";
 import { API_WEATHER } from "../utils/constant";
 import { CurrentWeatherSkeleton } from "../skeltons/CurrentWeatherSkelton";
 import { HourlyForecastSkeleton } from "../skeltons/HourlyForecastSkeltons";
+import { CityWeather } from "./CityWeather";
 
 export const WeatherApp = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -46,7 +47,7 @@ export const WeatherApp = () => {
     forecastData?.error?.message;
 
   return (
-    <div className="space-y-10 p-4">
+    <div className="space-y-8 p-4">
       <Nav
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -72,6 +73,10 @@ export const WeatherApp = () => {
           )}
         </div>
       )}
+
+      <div>
+        <CityWeather/>
+      </div>
     </div>
   );
 };

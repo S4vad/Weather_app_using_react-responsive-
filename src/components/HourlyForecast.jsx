@@ -13,7 +13,7 @@ export const HourlyForecast = ({ weather }) => {
       {threeHourData.map((hour, idx) => (
         <div
           key={idx}
-          className="bg-slate-700 flex flex-col items-center text-white rounded-xl justify-center px-2 gap-2 md:px-4 min-w-[95px]"
+          className="bg-slate-700 flex flex-col items-center text-white rounded-xl justify-center py-2 px-2 gap-2 md:px-4 md:py-3 min-w-[95px]"
         >
           <div className="text-sm">{hour.time.split(" ")[1]}</div>
           <div className="w-full h-0.5 bg-gray-600"></div>
