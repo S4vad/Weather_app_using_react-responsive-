@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IoSnow } from "react-icons/io5";
 import { IoMdSpeedometer } from "react-icons/io";
 import { getWeatherIcon } from "@/utils/weatherIconMap";
+import { UnitContext } from "@/utils/unitContext";
 
-export const CurrentWeather = ({weather}) => {
-  if(!weather){
+export const CurrentWeather = ({ weather }) => {
+  const { unit } = useContext(UnitContext);
+
+  if (!weather) {
     return;
   }
-  console.log('the werather',weather)
-  const localtime=weather.location.localtime; //code for split and take only time
-  const time= localtime.split(" ")[1]
+
+  const localtime = weather.location.localtime; //code for split and take only time
+  const time = localtime.split(" ")[1];
 
   const condition = weather.current.condition.text;
-  const Icon = getWeatherIcon(condition); 
+  const Icon = getWeatherIcon(condition);
   return (
     <div className="bg-slate-700 p-2 md:p-4 rounded-xl text-white min-w-[25%] flex flex-col justify-evenly gap-6">
       <div className="flex items-center justify-between ">
-        <div className="text-6xl font-bold">{weather.current.temp_c}</div>
+        <div className="text-6xl font-bold">
+          {unit === "C" ? `${weather.current.temp_c}°C` : `${weather.current.temp_f}°F`}
+        </div>
         <div className="flex flex-col gap-1 items-start">
           <span className="text-lg font-semibold">{weather.location.name}</span>
           <span className="text-xs font-semibold">{time}</span>
@@ -35,7 +40,7 @@ export const CurrentWeather = ({weather}) => {
         </div>
         <div className="flex justify-between">
           <div>
-            <span>Feel like: {weather.current.temp_c}</span>
+            <span>Feel like  :  {unit === "C" ? `${weather.current.temp_c}°C` : `${weather.current.temp_f}°F`}</span>
           </div>
           <div>
             <span>1 to 5</span>

@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IoSunny } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { API_WEATHER } from "../utils/constant";
 import { CityWeatherSkelton } from "@/skeltons/CityWeatherSkelton";
 import { getWeatherIcon } from "@/utils/weatherIconMap";
+import { UnitContext } from "@/utils/unitContext";
 
 const cities = ["New York", "Copenhagen", "Ho Chi Minh City"];
 
 export const CityWeather = () => {
+  const { unit } = useContext(UnitContext);
   const [dataList, setDataList] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getCountryCode = (country) => {
-  if (country === "United States of America") return "US";
-  if (country === "Denmark") return "Denmark";
-  if (country === "Vietnam") return "Vietnam";
-  return country;
-};
+    if (country === "United States of America") return "US";
+    if (country === "Denmark") return "Denmark";
+    if (country === "Vietnam") return "Vietnam";
+    return country;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +32,7 @@ export const CityWeather = () => {
         const results = await Promise.all(promises);
         setDataList(results);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -44,7 +46,7 @@ export const CityWeather = () => {
       {loading ? (
         <CityWeatherSkelton />
       ) : (
-       dataList.map((data, idx) => (
+        dataList.map((data, idx) => (
           <div
             key={idx}
             className="flex justify-between bg-slate-700 p-4 rounded-xl"
@@ -63,7 +65,9 @@ export const CityWeather = () => {
             <div className="flex flex-col gap-1 items-end">
               {getWeatherIcon(data?.current?.condition?.text)}
               <span className="text-xl">
-                {Math.round(data?.current?.temp_c)}°
+                {unit === "C"
+                  ? `${Math.round(data.current.temp_c)}°C`
+                  : `${Math.round(data.current.temp_f)}°F`}
               </span>
             </div>
           </div>

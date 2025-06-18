@@ -1,7 +1,10 @@
-import React from "react";
-import { getWeatherIcon } from "../utils/weatherIconMap"; // import your util
+import React, { useContext } from "react";
+import { getWeatherIcon } from "../utils/weatherIconMap";
+import { UnitContext } from "@/utils/unitContext";
+
 
 export const HourlyForecast = ({ weather }) => {
+  const {unit} = useContext(UnitContext)
   if(!weather){
     return
   }
@@ -19,7 +22,7 @@ export const HourlyForecast = ({ weather }) => {
           <div className="w-full h-0.5 bg-gray-600"></div>
           {getWeatherIcon(hour.condition.text)}
           <span className="text-xs text-slate-400">{hour.condition.text}</span>
-          <div className="text-2xl font-semibold">{hour.temp_c}°</div>
+          <div className="text-2xl font-semibold">{unit === "C" ? `${hour.temp_c}°` : `${hour.temp_f}°`}</div>
         </div>
       ))}
     </div>
